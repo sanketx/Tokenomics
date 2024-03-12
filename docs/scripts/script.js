@@ -1,56 +1,30 @@
-// document.getElementById('jsonInput').style.opacity = 0;
-// document.getElementById('jsonInput').addEventListener('change', handleFileSelect);
-
-// function handleFileSelect(event) {
-//     const file = event.target.files[0];
-//     if (!file) {
-//         return;
-//     }
-
-//     const fileNameDisplay = document.getElementById('fileName');
-//     fileNameDisplay.textContent = file.name; // Update the file name display
-//     readFile(file);
-// }
-
-// function readFile(file) {
-//     const fileReader = new FileReader();
-//     fileReader.onload = (e) => {
-//         const content = e.target.result;
-//         try {
-//             const data = JSON.parse(content);
-//             updateConversation(data);
-//         } catch (error) {
-//             console.error('Error parsing JSON:', error);
-//         }
-//     };
-//     fileReader.readAsText(file);
-// }
-
 window.addEventListener('DOMContentLoaded', (event) => {
-    loadConversation();
+    Promise.all([fetchJson(url1), fetchJson(url2)])
+        .then(([data1, data2]) => updateConversation(data1, data2))
+        .catch(error => console.error('Fetching error:', error));
 });
 
-function loadConversation() {
-    fetch('https://raw.githubusercontent.com/sanketx/Tokenomics/main/conversations/conversation_0.json')
+function fetchJson(url) {
+    return fetch(url)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                throw new Error('Network response was not ok for url: ' + url);
             }
             return response.json();
-        })
-        .then(data => {
-            updateConversation(data);
-        })
+        });
 }
 
+const url1 = 'https://raw.githubusercontent.com/sanketx/Tokenomics/main/conversations/conversation_0.json'
+const url2 = 'https://raw.githubusercontent.com/sanketx/Tokenomics/main/conversations/metrics_0.json'
 
-function updateConversation(data) {
+
+function updateConversation(data, tokens) {
     const conversationArea = document.getElementById('conversationArea');
     conversationArea.style.display = 'block'; // Make the conversation area visible
     conversationArea.innerHTML = ''; // Clear previous content
 
     let delay = 0; // Starting delay in milliseconds
-    const delayIncrement = 200; // Delay increment for each message
+    const delayIncrement = 100; // Delay increment for each message
 
     if (data.turns) {
         data.turns.forEach(turn => {
@@ -68,7 +42,7 @@ function updateConversation(data) {
 
     // Display the contextArea after the conversationArea has been updated
     setTimeout(() => {
-        displayContextArea(data.system_prompt);
+        displayContextArea(data);
     }, delay);
 
     delay += delayIncrement;
@@ -91,15 +65,126 @@ function updateConversation(data) {
             delay += (2 * delayIncrement);
         }
     });
+
+    // Display the tokenArea next
+    setTimeout(() => {
+        displayTokenArea(tokens);
+    }, delay);
+
+    delay += delayIncrement;
+
+    tokens.metrics.forEach(x => {
+        const tokenArea = document.getElementById('tokenArea');
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('count-wrapper');
+
+        if (x.context_usage) {
+            setTimeout(() => {
+                const message = createTokenMessage(x.context_usage, 'context-token');
+                wrapper.appendChild(message);
+            }, delay);
+            delay += delayIncrement;
+        }
+
+        setTimeout(() => {
+            const message = createTokenMessage(x.conversation_usage, 'conversation-token');
+            wrapper.appendChild(message);
+
+            cost_str = `Conversation API Cost: \$${(0.01 * x.conversation_cost).toPrecision(4)}`;
+            const p1 = document.createElement('p');
+            p1.textContent = cost_str;
+            p1.style.marginBottom = "5px";
+            // wrapper.append(p1)
+
+            tokenArea.appendChild(wrapper);
+        }, delay);
+
+        delay += delayIncrement;
+    })
+
+    setTimeout(() => {
+        displayTotalCost(tokens);
+    }, delay);
 }
 
-function displayContextArea(system_prompt) {
+function displayTokenArea(tokens) {
+    const tokenArea = document.getElementById('tokenArea');
+    tokenArea.style.display = 'block'; // Make the tokent area visible
+    tokenArea.innerHTML = ''; // Clear previous content
+
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('token-count');
+
+    const heading = document.createElement('h3');
+    heading.textContent = 'Token Metrics';
+    wrapper.appendChild(heading);
+
+    console.log(tokens.system_tokens);
+
+    const p1 = document.createElement('p');
+    p1.textContent = `System Prompt Tokens: ${tokens.system_tokens}`;
+    p1.style.margin = "0px";
+    wrapper.append(p1)
+
+    tokenArea.appendChild(wrapper);
+}
+
+function displayTotalCost(tokens) {
+    const tokenArea = document.getElementById('tokenArea');
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('token-count');
+
+    const heading = document.createElement('h3');
+    heading.textContent = 'Cumulative API Costs';
+    wrapper.appendChild(heading);
+
+    const p2 = document.createElement('p');
+    p2.textContent = `Context API Cost: \$${(0.01 * tokens.context_cost).toPrecision(4)}`;
+    p2.style.margin = "0px";
+    wrapper.append(p2)
+
+    const p3 = document.createElement('p');
+    p3.textContent = `Conversation API Cost: \$${(0.01 * tokens.conversation_cost).toPrecision(4)}`;
+    p3.style.margin = "0px";
+    wrapper.append(p3)
+
+    const p4 = document.createElement('p');
+    p4.textContent = `Total API Cost: \$${(0.01 * tokens.total_cost).toPrecision(4)}`;
+    p4.style.margin = "0px";
+    wrapper.append(p4)
+
+    tokenArea.appendChild(wrapper);
+}
+
+function createTokenMessage(data, className) {
+    const wrapper = document.createElement('div');
+    wrapper.classList.add(className);
+
+    const p1 = document.createElement('p');
+    p1.textContent = `Prompt Tokens: ${data.prompt_tokens}`;
+    p1.style.margin = "0px";
+    wrapper.appendChild(p1)
+
+    const p2 = document.createElement('p');
+    p2.textContent = `API Input Tokens: ${data.input_tokens}`;
+    p2.style.margin = "0px";
+    wrapper.appendChild(p2)
+
+    const p3 = document.createElement('p');
+    p3.textContent = `API Output Tokens: ${data.output_tokens}`;
+    p3.style.margin = "0px";
+    wrapper.appendChild(p3)
+
+    return wrapper;
+}
+
+function displayContextArea(data) {
     const contextArea = document.getElementById('contextArea');
     contextArea.style.display = 'block'; // Make the context area visible
     contextArea.innerHTML = ''; // Clear previous content
 
     // Create the system prompt message
-    const systemPromptMessage = createSystemPromptMessage(system_prompt.prompt, system_prompt.metadata);
+    const systemPromptMessage = createSystemPromptMessage(data.system_prompt.prompt, data.system_prompt.metadata);
     contextArea.appendChild(systemPromptMessage);
 }
 

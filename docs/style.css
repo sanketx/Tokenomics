@@ -18,7 +18,8 @@ body {
 }
 
 #conversationArea,
-#contextArea {
+#contextArea,
+#tokenArea {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     background: #1e1e1e;
@@ -26,7 +27,7 @@ body {
     margin: 10px;
     flex: none;
     width: 600px;
-    max-width: 40%;
+    max-width: 30%;
 }
 
 .message {
@@ -89,43 +90,41 @@ body {
     font-family: "Courier";
 }
 
-.system-prompt {
+.system-prompt,
+.token-count,
+.context-token,
+.conversation-token,
+.count-wrapper {
     background: #333;
     border-radius: 18px;
     padding: 10px 15px;
+    margin-bottom: 10px;
     color: #fff;
-    margin: 10px 0;
     font-size: 15px;
     font-family: "Courier";
 
-    animation: fadeIn 2s;
-    -webkit-animation: fadeIn 2s;
-    -moz-animation: fadeIn 2s;
-    -o-animation: fadeIn 2s;
-    -ms-animation: fadeIn 2s;
+    animation: fadeIn 1s;
+    -webkit-animation: fadeIn 1s;
+    -moz-animation: fadeIn 1s;
+    -o-animation: fadeIn 1s;
+    -ms-animation: fadeIn 1s;
 }
 
-/* Style for the upload button and file name */
-#fileName {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    background: linear-gradient(135deg, #665be3, #2bd0e9);
-    /* Gradient for the button */
-    color: #121212;
-    /* Dark text for the button */
-    cursor: pointer;
-    margin: 10px;
+.count-wrapper {
+    padding: 5px;
+    background: #585858;
 }
 
-#fileName:hover {
-    background: #2f0743;
-    color: white;
+.context-token {
+    background: #ffaf4e;
+    color: black;
 }
 
-/* Additional styling can be added here */
-
-
+.conversation-token {
+    background: #6dc2ff;
+    color: black;
+    margin: 0;
+}
 
 @keyframes fadeIn {
     0% {
