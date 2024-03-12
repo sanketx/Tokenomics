@@ -1,6 +1,8 @@
 """Calculates and displays the cost of LLM-powered chatbot conversations."""
 
 import argparse
+import dataclasses
+import json
 from pathlib import Path
 
 import tiktoken
@@ -46,6 +48,7 @@ def parse_args() -> argparse.Namespace:
         choices=["gpt-4", "gpt-3.5"],
         help="LLM configuration to use (gpt-4 or gpt-3.5).",
     )
+    parser.add_argument("--output", type=str, help="Path to write the JSON file with the metrics.")
 
     return parser.parse_args()
 
@@ -58,11 +61,21 @@ def calculate_cost() -> None:
     json_file = Path(args.json_file)
 
     conversation = Conversation.from_json(json_file)
-    metrics = ConversationMetrics(conversation, llm_config)
-    cost = metrics.conversation_cost()
+    conversation_metrics = ConversationMetrics(conversation, llm_config)
+    cost = conversation_metrics.conversation_cost()
 
     for key, value in cost.items():
         print(f"{key}: ${value * 0.01:.4f}")
+
+    if args.output is None:
+        return
+
+    output_file = Path(args.output)
+    metrics = [dataclasses.asdict(m) for m in conversation_metrics.metrics]
+    cost.update(metrics=metrics)
+
+    with open(output_file, "w", encoding="utf-8") as fh:
+        json.dump(cost, fh, indent=4)
 
 
 if __name__ == "__main__":
