@@ -72,7 +72,12 @@ def calculate_cost() -> None:
 
     output_file = Path(args.output)
     metrics = [dataclasses.asdict(m) for m in conversation_metrics.metrics]
-    cost.update(metrics=metrics)
+
+    if (tokens := metrics[0]["context_usage"]) is None:
+        tokens = metrics[0]["conversation_usage"]
+
+    system_tokens = tokens["input_tokens"] - tokens["prompt_tokens"]
+    cost.update(metrics=metrics, system_tokens=system_tokens)  # type: ignore[call-overload]
 
     with open(output_file, "w", encoding="utf-8") as fh:
         json.dump(cost, fh, indent=4)
