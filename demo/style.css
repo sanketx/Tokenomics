@@ -1,0 +1,178 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #121212;
+    /* Dark background */
+    color: #ffffff;
+    /* Light text */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+}
+
+.main-content {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+}
+
+#conversationArea,
+#contextArea {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    background: #1e1e1e;
+    padding: 20px;
+    margin: 10px;
+    flex: none;
+    width: 600px;
+    max-width: 600px;
+}
+
+.message {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 10px;
+}
+
+.message-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0 12px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.user-prompt,
+.agent-response,
+.agent-query,
+.database-response {
+    background: linear-gradient(135deg, #4e4376, #2b5876);
+    /* Gradient for messages */
+    color: #ffffff;
+    /* Light text for messages */
+    border-radius: 18px;
+    padding: 10px 15px;
+    max-width: 70%;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+
+    animation: fadeIn 2s;
+    -webkit-animation: fadeIn 2s;
+    -moz-animation: fadeIn 2s;
+    -o-animation: fadeIn 2s;
+    -ms-animation: fadeIn 2s;
+}
+
+.user-prompt {
+    align-self: flex-end;
+    background: linear-gradient(135deg, #41295a, #2f0743);
+}
+
+.agent-response {
+    align-self: flex-start;
+}
+
+.agent-query {
+    align-self: flex-end;
+    font-size: 15px;
+    font-family: "Courier";
+}
+
+.database-response {
+    align-self: flex-start;
+    background: linear-gradient(135deg, #66ba4d, #0ace45);
+
+    color: #000;
+    font-size: 15px;
+    font-family: "Courier";
+}
+
+.system-prompt {
+    background: #333;
+    border-radius: 18px;
+    padding: 10px 15px;
+    color: #fff;
+    margin: 10px 0;
+    font-size: 15px;
+    font-family: "Courier";
+
+    animation: fadeIn 2s;
+    -webkit-animation: fadeIn 2s;
+    -moz-animation: fadeIn 2s;
+    -o-animation: fadeIn 2s;
+    -ms-animation: fadeIn 2s;
+}
+
+/* Style for the upload button and file name */
+#fileName {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #665be3, #2bd0e9);
+    /* Gradient for the button */
+    color: #121212;
+    /* Dark text for the button */
+    cursor: pointer;
+    margin: 10px;
+}
+
+#fileName:hover {
+    background: #2f0743;
+    color: white;
+}
+
+/* Additional styling can be added here */
+
+
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-ms-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
