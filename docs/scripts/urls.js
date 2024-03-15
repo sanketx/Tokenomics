@@ -1,0 +1,2 @@
+export const url1 = 'https://raw.githubusercontent.com/sanketx/Tokenomics/main/conversations/conversation_0.json';
+export const url2 = 'https://raw.githubusercontent.com/sanketx/Tokenomics/main/conversations/metrics_0.json';
