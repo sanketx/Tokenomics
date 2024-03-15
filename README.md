@@ -31,7 +31,7 @@
 
 - **Key challenges in deploying chatbots:** Adoption of automated solutions is challenging due to internal funding challenges and questions about long-term commitment. Risk averse organizations are as of yet unsure about how models can be constrained to provide helpful and factual answers. It is challenging to for LLM API providers to provide concrete guarantees about safety and helpfulness given the stochastic nature of these models. Concerns about privacy and security when using 3rd party APIs are also prevalent.
 
-## 3. Tokenomics value model
+## 4. Tokenomics value model
 
 ### Costs of running a chatbot
 - The primary focus is recurring costs which dominate over fixed costs in the long run
@@ -59,7 +59,7 @@
 - Step 2: This query, either to a vector database for RAG or to a traditional database, is executed and the response is made available to the chatbot.
 - Step 3. The second API call adds this context to the user query and the LLM generates a grounded response to the query with the aid of the supplied context.
 
-## 4. Simulated conversations and analysis
+## 5. Simulated conversations and analysis
 
 ### Data generation
 
@@ -78,7 +78,7 @@ The average cost per conversation using a human can be calculated as follows:
 
 **Safety costs:** These equations don't account for the costs of the automated safety mechanisms required to add guardrails to LLMs. While this cost is highly dependent on the implementation of the guardrails, even a simple approach such as having an LLM reflect on its proposed response to check if it correctly answers the question, is helpful and not toxic, etc., applies a ~2x cost multiplier. This multiplier could be higher for more critical applications or lower for lower stakes deployments such as internal chat systems.
 
-## 5. Conclusion and key recommendations
+## 6. Conclusion and key recommendations
 
 ### Summary
 - There is no one size fits all answer for whether LLM chatbots offer an economic advantage compared to human workers.
