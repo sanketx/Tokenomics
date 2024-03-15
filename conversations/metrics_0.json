@@ -1,7 +1,7 @@
 {
-    "conversation_cost": 18.380000000000003,
-    "context_cost": 7.99,
-    "total_cost": 26.370000000000005,
+    "conversation_cost": 1.838,
+    "context_cost": 0.7989999999999999,
+    "total_cost": 2.637,
     "metrics": [
         {
             "conversation_usage": {
@@ -14,8 +14,8 @@
                 "input_tokens": 142,
                 "output_tokens": 9
             },
-            "conversation_cost": 3.0700000000000003,
-            "context_cost": 1.69
+            "conversation_cost": 0.307,
+            "context_cost": 0.169
         },
         {
             "conversation_usage": {
@@ -24,7 +24,7 @@
                 "output_tokens": 35
             },
             "context_usage": null,
-            "conversation_cost": 2.99,
+            "conversation_cost": 0.299,
             "context_cost": null
         },
         {
@@ -38,8 +38,8 @@
                 "input_tokens": 239,
                 "output_tokens": 29
             },
-            "conversation_cost": 3.5500000000000003,
-            "context_cost": 3.2600000000000002
+            "conversation_cost": 0.355,
+            "context_cost": 0.326
         },
         {
             "conversation_usage": {
@@ -52,8 +52,8 @@
                 "input_tokens": 280,
                 "output_tokens": 8
             },
-            "conversation_cost": 4.34,
-            "context_cost": 3.04
+            "conversation_cost": 0.434,
+            "context_cost": 0.304
         },
         {
             "conversation_usage": {
@@ -62,7 +62,7 @@
                 "output_tokens": 37
             },
             "context_usage": null,
-            "conversation_cost": 4.43,
+            "conversation_cost": 0.443,
             "context_cost": null
         }
     ],
