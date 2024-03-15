@@ -17,14 +17,14 @@ encoder = tiktoken.get_encoding("cl100k_base")
 llm_configs = {
     "gpt-3.5": LLMConfig(
         context_size=16000,
-        input_cost=0.5,
-        output_cost=1.5,
+        input_cost=0.05,  # cents / 1000 tokens
+        output_cost=0.15,  # cents / 1000 tokens
         encoder=encoder,
     ),
     "gpt-4": LLMConfig(
         context_size=128000,
-        input_cost=10.0,
-        output_cost=30.0,
+        input_cost=1.0,  # cents / 1000 tokens
+        output_cost=3.0,  # cents / 1000 tokens
         encoder=encoder,
     ),
 }
