@@ -31,7 +31,7 @@
 
 - **Key challenges in deploying chatbots:** Adoption of automated solutions is challenging due to internal funding challenges and questions about long-term commitment. Risk averse organizations are as of yet unsure about how models can be constrained to provide helpful and factual answers. It is challenging to for LLM API providers to provide concrete guarantees about safety and helpfulness given the stochastic nature of these models. Concerns about privacy and security when using 3rd party APIs are also prevalent.
 
-## 4. Tokenomics value model
+## 4. Tokenomics value model: [https://sanket.io/Tokenomics/](https://sanket.io/Tokenomics/)
 
 ### Costs of running a chatbot
 - The primary focus is recurring costs which dominate over fixed costs in the long run
